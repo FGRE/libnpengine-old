@@ -1,0 +1,3 @@
+[submodule "externals/libnpa"]
+	path = externals/libnpa
+	url = http://github.com/PawelLyskawinski/libnpa.git

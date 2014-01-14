@@ -23,6 +23,9 @@
 #include "text.hpp"
 #include "playable.hpp"
 
+#include <chrono>
+#include <thread>
+
 #include <iostream>
 #include <boost/chrono.hpp>
 #include <boost/lexical_cast.hpp>
@@ -684,7 +687,7 @@ void NsbInterpreter::BindIdentifier()
 
 void NsbInterpreter::Sleep(int32_t ms)
 {
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(ms));
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
 void NsbInterpreter::SetVariable(const string& Identifier, const Variable& Var)
