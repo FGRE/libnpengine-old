@@ -24,6 +24,8 @@
 #include <queue>
 #include <vector>
 #include <functional>
+#include <string>
+
 using std::string;
 
 #define SPECIAL_POS_NUM 7

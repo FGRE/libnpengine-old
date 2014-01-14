@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * */
 #include "movie.hpp"
+
+#include <chrono>
+#include <thread>
+
 #include <boost/thread/thread.hpp>
 #include <boost/chrono.hpp>
 
@@ -140,7 +144,7 @@ void Playable::Play()
 
 void Playable::Update()
 {
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Playable::SetVolume(double Volume)
