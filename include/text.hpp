@@ -43,7 +43,7 @@ struct Text : DrawableBase
 
     void StopMusic();
     Playable* pCurrentMusic;
-    static void Initialize(const std::string& FontFile);
+    static void LoadFont(const char* Language);
     static sf::Font Font;
     static bool WordWrap;
 };

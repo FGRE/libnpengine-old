@@ -25,6 +25,7 @@
 #include <memory>
 #include <fstream>
 #include <limits>
+#include <fontconfig/fontconfig.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 sf::Font Text::Font;
@@ -148,7 +149,29 @@ std::string Text::Wrap(std::string String, int Width)
     return String;
 }
 
-void Text::Initialize(const std::string& FontFile)
+void Text::LoadFont(const char* Language)
 {
-    assert(Font.loadFromFile(FontFile));
+    FcPattern* pattern = FcPatternCreate();
+    FcObjectSet* os = FcObjectSetBuild(FC_LANG, FC_FILE, (char*)NULL);
+    FcFontSet* fonts = FcFontList(NULL, pattern, os);
+
+    FcObjectSetDestroy(os);
+    FcPatternDestroy(pattern);
+
+    bool FontFound = false;
+    for (int i = 0; i < fonts->nfont; ++i)
+    {
+        FcPattern* font = fonts->fonts[i];
+        FcChar8* file;
+        FcLangSet* langset;
+        if (FcPatternGetString(font, FC_FILE, 0, &file) == FcResultMatch &&
+            FcPatternGetLangSet(font, FC_LANG, 0, &langset) == FcResultMatch &&
+            FcLangSetHasLang(langset, (FcChar8*)Language) == FcLangEqual)
+        {
+            FontFound = Font.loadFromFile((char*)file);
+            if (FontFound) break;
+        }
+    }
+    FcFontSetDestroy(fonts);
+    assert(FontFound);
 }
